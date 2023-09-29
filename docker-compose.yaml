@@ -8,7 +8,7 @@ services:
     volumes:
       - ./portfolio_mvc:/var/www/html
     ports:
-      - "9000:9000"
+      - "${PHP_PORT}:9000"
     networks:
       - app-network
     restart: unless-stopped
@@ -20,7 +20,7 @@ services:
     volumes:
       - ./portfolio_react:/app
     ports:
-      - "3000:3000"
+      - "${REACT_PORT}:3000"
     networks:
       - app-network
     depends_on:
@@ -36,7 +36,7 @@ services:
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
-      - "3306:3306"
+      - "${MYSQL_PORT}:3306"
     networks:
       - app-network
     restart: unless-stopped

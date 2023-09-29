@@ -4,10 +4,18 @@ namespace App;
 
 // Chargez l'autoloader pour gérer automatiquement les classes et les espaces de noms.
 require_once __DIR__ . '/vendor/autoload.php';
-require_once __DIR__ . '/App/Controllers/HomeController.php';
 
 // Utilisez les classes et les espaces de noms nécessaires.
 use App\Controllers\HomeController;
+use App\Core\Utils;
+
+spl_autoload_register(function ($class) {
+    $class = str_replace("App\\", "", $class);
+    $class = str_replace("\\", "/", $class) . ".php";
+    if (file_exists($class)) {
+      include $class;
+    }
+  });
 
 // Définissez le chemin de base de l'application (modifiable en fonction de votre configuration).
 define('BASE_PATH', '/');
@@ -34,9 +42,9 @@ if (class_exists($controller_name)) {
         $controller->$method_name();
     } else {
         // Gérez ici la méthode non trouvée (par exemple, affichez une page 404).
-        echo 'Méthode ' . $method_name . ' non trouvée';
+        Utils::error(404, 'Méthode ' . $method_name . ' non trouvée');
     }
 } else {
     // Gérez ici le contrôleur non trouvé (par exemple, affichez une page 404).
-    echo 'Contrôleur ' . $controller_name . ' non trouvé';
+    Utils::error(404, 'Contrôleur ' . $controller_name . ' non trouvé');
 }

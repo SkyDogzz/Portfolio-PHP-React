@@ -1,6 +1,12 @@
 <?php
+namespace App;
+
 // Chargez l'autoloader pour gérer automatiquement les classes et les espaces de noms.
-require_once 'vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/App/Controllers/HomeController.php';
+
+// Utilisez les classes et les espaces de noms nécessaires.
+use App\Controllers\HomeController;
 
 // Définissez le chemin de base de l'application (modifiable en fonction de votre configuration).
 define('BASE_PATH', '/');
@@ -31,5 +37,5 @@ if (class_exists($controller_name)) {
     }
 } else {
     // Gérez ici le contrôleur non trouvé (par exemple, affichez une page 404).
-    echo 'Contrôleur non trouvé';
+    echo 'Contrôleur ' . $controller_name . ' non trouvé';
 }

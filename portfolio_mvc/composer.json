@@ -1,9 +1,7 @@
 {
     "name": "skydogzz/portfolio_mvc",
     "autoload": {
-        "psr-4": {
-            "Skydogzz\\PortfolioMvc\\": "src/"
-        }
+        "App\\": "App/"
     },
     "authors": [
         {

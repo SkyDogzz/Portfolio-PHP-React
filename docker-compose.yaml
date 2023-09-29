@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  php:
+    build:
+      context: portfolio_mvc
+    container_name: Portfolio_MVC
+    volumes:
+      - ./portfolio_mvc:/var/www/html
+    ports:
+      - "9000:9000"
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  react:
+    build:
+      context: portfolio_react
+    container_name: Portfolio_React
+    volumes:
+      - ./portfolio_react:/app
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+    depends_on:
+      - php
+    restart: unless-stopped
+
+  mysql:
+    image: mysql:latest
+    container_name: Portfolio_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3306:3306"
+    networks:
+      - app-network
+    restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge

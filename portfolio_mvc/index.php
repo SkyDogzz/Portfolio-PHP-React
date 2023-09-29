@@ -1,4 +1,5 @@
 <?php
+
 namespace App;
 
 // Chargez l'autoloader pour gérer automatiquement les classes et les espaces de noms.
@@ -14,7 +15,7 @@ define('BASE_PATH', '/');
 // Obtenez le chemin de l'URL actuelle (par exemple, "/mon_projet/index.php/projets").
 $current_url = $_SERVER['REQUEST_URI'];
 // Retirez le chemin de base de l'URL pour obtenir le chemin relatif.
-$relative_path = str_replace(BASE_PATH, '', $current_url);
+$relative_path = str_replace(BASE_PATH, '/', $current_url);
 
 // Divisez le chemin en segments.
 $segments = explode('/', $relative_path);
@@ -33,7 +34,7 @@ if (class_exists($controller_name)) {
         $controller->$method_name();
     } else {
         // Gérez ici la méthode non trouvée (par exemple, affichez une page 404).
-        echo 'Méthode non trouvée';
+        echo 'Méthode ' . $method_name . ' non trouvée';
     }
 } else {
     // Gérez ici le contrôleur non trouvé (par exemple, affichez une page 404).

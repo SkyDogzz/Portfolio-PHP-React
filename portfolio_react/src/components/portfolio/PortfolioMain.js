@@ -2,16 +2,26 @@ import { useEffect } from "react"
 
 export default function Portfolio() {
     useEffect(() => {
-        const h1Shadow = document.querySelector(".h1-shadow")
+        const h1Shadow = document.querySelector(".h1-shadow");
         const h1 = document.querySelector('h1');
 
+        let mouseX = 0;
+        let mouseY = 0;
+        let toMovX = 0;
+        let toMovY = 0;
+
+        const lerp = (a, b, t) => a * (1 - t) + b * t;
+
         const handleMouseMove = (e) => {
-            let mouseX = e.clientX;
-            let mouseY = e.clientY;
-            let toMovX = (mouseX - window.innerWidth / 2) / window.innerWidth * 100;
-            let toMovY = (mouseY - window.innerHeight / 2) / window.innerHeight * 100;
-            h1Shadow.style.transform = 'translate(calc(-50% + ' + toMovX + 'px), calc(-50% + ' + toMovY + 'px)) rotate(-20deg)';
-            h1.style.transform = 'translate(calc(-50% + ' + -toMovX + 'px), calc(-50% + ' + -toMovY + 'px))';
+            mouseX = e.clientX;
+            mouseY = e.clientY; 
+
+            // Utilisation de la fonction lerp pour lisser le mouvement
+            toMovX = lerp(toMovX, (mouseX - window.innerWidth / 2) / window.innerWidth * 100, 0.01);
+            toMovY = lerp(toMovY, (mouseY - window.innerHeight / 2) / window.innerHeight * 100, 0.01);
+
+            h1Shadow.style.transform = `translate(calc(-50% + ${toMovX}px), calc(-50% + ${toMovY}px)) rotate(-20deg)`;
+            h1.style.transform = `translate(calc(-50% + ${-toMovX}px), calc(-50% + ${-toMovY}px))`;
         };
 
         window.addEventListener('mousemove', handleMouseMove);

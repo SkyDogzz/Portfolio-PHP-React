@@ -1,21 +1,13 @@
 import { Routes, Route, Outlet, Link } from "react-router-dom";
+import Portfolio from "./components/Portfolio";
 
 export default function App() {
   return (
     <div className="App">
       <Routes>
-        <Route index element={<Home />} />
+        <Route index element={<Portfolio />} />
         <Route path="*" element={<NoMatch />} />
       </Routes>
-    </div>
-  );
-}
-
-function Home() {
-  return (
-    <div>
-      <h2>Welcome!</h2>
-      <Outlet />
     </div>
   );
 }

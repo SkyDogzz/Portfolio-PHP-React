@@ -11,6 +11,7 @@
     scroll-snap-type: y mandatory;
     position: absolute;
     color: $tertiary-color;
+    scroll-behavior: smooth;
 
     .quaternary-color {
         color: $quaternary-color;

@@ -1,4 +1,3 @@
-//import css
 export default function PortfolioHeader() {
     return (
         <div className="PortfolioHeader">

@@ -1,4 +1,26 @@
+import { useEffect } from "react"
+
 export default function Portfolio() {
+    useEffect(() => {
+        const h1Shadow = document.querySelector(".h1-shadow")
+        const h1 = document.querySelector('h1');
+
+        const handleMouseMove = (e) => {
+            let mouseX = e.clientX;
+            let mouseY = e.clientY;
+            let toMovX = (mouseX - window.innerWidth / 2) / window.innerWidth * 100;
+            let toMovY = (mouseY - window.innerHeight / 2) / window.innerHeight * 100;
+            h1Shadow.style.transform = 'translate(calc(-50% + ' + toMovX + 'px), calc(-50% + ' + toMovY + 'px)) rotate(-20deg)';
+            h1.style.transform = 'translate(calc(-50% + ' + -toMovX + 'px), calc(-50% + ' + -toMovY + 'px))';
+        };
+
+        window.addEventListener('mousemove', handleMouseMove);
+
+        return () => {
+            window.removeEventListener('mousemove', handleMouseMove);
+        };
+    }, []);
+
     return (
         <main className="PortfolioMain">
             <section className="PortfolioSection PortfolioIntroduction">

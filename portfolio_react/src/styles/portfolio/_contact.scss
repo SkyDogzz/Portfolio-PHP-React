@@ -1,0 +1,20 @@
+footer {
+    background-color: $quaternary-color;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    scroll-snap-align: end;
+}
+
+footer h2 {
+    color: $tertiary-color;
+}
+
+#contact-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 50%;
+    margin: 20px 0 80px;
+}

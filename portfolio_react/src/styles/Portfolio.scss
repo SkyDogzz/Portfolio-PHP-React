@@ -1,0 +1,39 @@
+@import 'variable';
+@import 'reset';
+
+@import url('https://fonts.googleapis.com/css2?family=Esteban&family=Montserrat:wght@500;600;700;800;900&display=swap');
+
+.quaternary-color {
+    color: $quaternary-color;
+}
+
+section {
+    scroll-snap-align: end;
+}
+
+
+.Portfolio {
+    height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
+    scroll-snap-type: y mandatory;
+    position: absolute;
+}
+
+h2 {
+    position: relative;
+    z-index: 10;
+    color: $quaternary-color;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: 80px;
+    padding-top: 60px;
+}
+
+@import 'portfolio/header';
+@import 'portfolio/introduction';
+@import 'portfolio/about';
+@import 'portfolio/skills';
+@import 'portfolio/portfolio';
+@import 'portfolio/contact';

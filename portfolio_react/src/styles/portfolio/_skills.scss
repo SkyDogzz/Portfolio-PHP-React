@@ -1,0 +1,68 @@
+#skills {
+    background-color: $primary-color;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#skills img {
+    width: 500px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+#skills img:hover {
+    transform: scale(1.02);
+}
+
+#portfolio {
+    background-color: $secondary-color;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: center;
+    height: 100vh;
+}
+
+#skills>h3 {
+    padding-bottom: 60px;
+}
+
+#skills-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+}
+
+#skills-container>div {
+    padding: 0 20px;
+}
+
+#progress-bars {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+    width: 100%;
+
+}
+
+.progress-bar {
+    margin: 10px 0;
+    width: 200px;
+    height: 20px;
+    background-color: $quinary-color;
+    border-radius: 10px;
+    position: relative;
+}
+
+.progress-bar>div {
+    background-color: $quaternary-color;
+    height: 100%;
+    border-radius: 10px;
+    width: 0%;
+    transition: all 1s ease-in-out;
+}

@@ -4,41 +4,71 @@ export default function Portfolio() {
     useEffect(() => {
         const h1Shadow = document.querySelector(".h1-shadow");
         const h1 = document.querySelector('h1');
-    
+
         let mouseX = 0;
         let mouseY = 0;
         let toMovX = 0;
         let toMovY = 0;
-    
+
         const lerp = (a, b, t) => a * (1 - t) + b * t;
-    
+
         const handleMouseMove = (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
         };
-    
+
         const updatePosition = () => {
             // Utilisation de la fonction lerp pour lisser le mouvement
             toMovX = lerp(toMovX, (mouseX - window.innerWidth / 2) / window.innerWidth * 100, 0.1);
             toMovY = lerp(toMovY, (mouseY - window.innerHeight / 2) / window.innerHeight * 100, 0.1);
-    
+
             h1Shadow.style.transform = `translate(calc(-50% + ${toMovX}px), calc(-50% + ${toMovY}px)) rotate(-20deg)`;
             h1.style.transform = `translate(calc(-50% + ${-toMovX}px), calc(-50% + ${-toMovY}px))`;
-    
+
             // Continuer à mettre à jour la position jusqu'à ce qu'elle atteigne la position finale
             if (Math.abs(mouseX - toMovX) > 0.1 || Math.abs(mouseY - toMovY) > 0.1) {
                 requestAnimationFrame(updatePosition);
             }
         };
-    
+
         window.addEventListener('mousemove', handleMouseMove);
-    
+
         updatePosition();
-    
+
         return () => {
             window.removeEventListener('mousemove', handleMouseMove);
         };
     }, []);
+
+    useEffect(() => {
+        const progressBars = document.getElementsByClassName('progress-bar');
+        const smoothScrollContainer = document.querySelector('.Portfolio');
+
+        console.log(progressBars);
+
+        smoothScrollContainer.addEventListener('scroll', function () {
+            const scrollTop = smoothScrollContainer.scrollTop;
+            const clientHeight = smoothScrollContainer.clientHeight;
+
+            let topElementToTopViewPortProgressBars = []
+            for (let i = 0; i < progressBars.length; i++) {
+                topElementToTopViewPortProgressBars.push(progressBars[i].getBoundingClientRect().top)
+            }
+            for (let i = 0; i < progressBars.length; i++) {
+                if (scrollTop > (scrollTop + topElementToTopViewPortProgressBars[i] - clientHeight) && scrollTop < (scrollTop + topElementToTopViewPortProgressBars[i])) {
+                    setTimeout(function () {
+                        progressBars[i].children[0].style.width = progressBars[i].children[0].getAttribute('data-percentage') + '%';
+                        console.log(progressBars[i].children[0].style.width = progressBars[i].children[0].getAttribute('data-percentage') + '%')
+                    }, 50 * i)
+                }
+                else {
+                    progressBars[i].children[0].style.width = '0%';
+                }
+            }
+        })
+
+    }, []);
+
 
     return (
         <main className="PortfolioMain">
@@ -100,6 +130,12 @@ export default function Portfolio() {
                 <div id="skills-container">
                     <div id="progress-bars">
                         <div>
+                            <p>Anglais</p>
+                            <div className="progress-bar">
+                                <div data-percentage="80"></div>
+                            </div>
+                        </div>
+                        <div>
                             <p>HTML5</p>
                             <div className="progress-bar">
                                 <div data-percentage="90"></div>
@@ -148,7 +184,19 @@ export default function Portfolio() {
                             </div>
                         </div>
                         <div>
-                            <p>NuxtJS</p>
+                            <p>Symfony</p>
+                            <div className="progress-bar">
+                                <div data-percentage="50"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <p>Tailwind</p>
+                            <div className="progress-bar">
+                                <div data-percentage="50"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <p>Git</p>
                             <div className="progress-bar">
                                 <div data-percentage="50"></div>
                             </div>

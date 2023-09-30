@@ -4,28 +4,37 @@ export default function Portfolio() {
     useEffect(() => {
         const h1Shadow = document.querySelector(".h1-shadow");
         const h1 = document.querySelector('h1');
-
+    
         let mouseX = 0;
         let mouseY = 0;
         let toMovX = 0;
         let toMovY = 0;
-
+    
         const lerp = (a, b, t) => a * (1 - t) + b * t;
-
+    
         const handleMouseMove = (e) => {
             mouseX = e.clientX;
-            mouseY = e.clientY; 
-
+            mouseY = e.clientY;
+        };
+    
+        const updatePosition = () => {
             // Utilisation de la fonction lerp pour lisser le mouvement
-            toMovX = lerp(toMovX, (mouseX - window.innerWidth / 2) / window.innerWidth * 100, 0.01);
-            toMovY = lerp(toMovY, (mouseY - window.innerHeight / 2) / window.innerHeight * 100, 0.01);
-
+            toMovX = lerp(toMovX, (mouseX - window.innerWidth / 2) / window.innerWidth * 100, 0.1);
+            toMovY = lerp(toMovY, (mouseY - window.innerHeight / 2) / window.innerHeight * 100, 0.1);
+    
             h1Shadow.style.transform = `translate(calc(-50% + ${toMovX}px), calc(-50% + ${toMovY}px)) rotate(-20deg)`;
             h1.style.transform = `translate(calc(-50% + ${-toMovX}px), calc(-50% + ${-toMovY}px))`;
+    
+            // Continuer à mettre à jour la position jusqu'à ce qu'elle atteigne la position finale
+            if (Math.abs(mouseX - toMovX) > 0.1 || Math.abs(mouseY - toMovY) > 0.1) {
+                requestAnimationFrame(updatePosition);
+            }
         };
-
+    
         window.addEventListener('mousemove', handleMouseMove);
-
+    
+        updatePosition();
+    
         return () => {
             window.removeEventListener('mousemove', handleMouseMove);
         };

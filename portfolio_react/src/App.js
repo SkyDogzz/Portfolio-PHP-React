@@ -1,5 +1,6 @@
 import { Routes, Route, Link } from "react-router-dom";
 import Portfolio from "./components/Portfolio";
+import "./styles/App.scss";
 
 export default function App() {
   return (

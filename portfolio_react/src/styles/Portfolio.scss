@@ -1,9 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Esteban&family=Montserrat:wght@500;600;700;800;900&display=swap');
+
 .Portfolio {
 
-    @import 'variable';
-    @import 'reset';
+    @import 'portfolio/variable';
+    @import 'portfolio/reset';
 
-    @import url('https://fonts.googleapis.com/css2?family=Esteban&family=Montserrat:wght@500;600;700;800;900&display=swap');
+    height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
+    scroll-snap-type: y mandatory;
+    position: absolute;
+    color: $tertiary-color;
 
     .quaternary-color {
         color: $quaternary-color;
@@ -11,15 +18,6 @@
 
     section {
         scroll-snap-align: end;
-    }
-
-
-    .Portfolio {
-        height: 100vh;
-        width: 100vw;
-        overflow-x: hidden;
-        scroll-snap-type: y mandatory;
-        position: absolute;
     }
 
     h2 {

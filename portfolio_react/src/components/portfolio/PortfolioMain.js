@@ -15,9 +15,6 @@ export default function Portfolio() {
             <section id="about">
                 <h2>À propos</h2>
                 <div id="about-container">
-                    <div className="profil-pic">
-                        <img className="about-base about-base-left" src="img/ThomasStephan.png" alt="Thomas Stephan" />
-                    </div>
                     <div id="about-content">
                         <h3 className="about-base about-base-top">Mon nom est <span className="quaternary-color">Thomas
                             Stephan</span>

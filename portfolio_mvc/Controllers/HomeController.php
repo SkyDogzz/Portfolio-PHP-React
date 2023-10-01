@@ -10,10 +10,4 @@ class HomeController extends BaseController
     {
         echo 'Page d\'accueil';
     }
-
-    public function test()
-    {
-        echo 'test';
-        
-    }
 }

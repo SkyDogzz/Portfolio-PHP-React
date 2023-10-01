@@ -6,7 +6,6 @@ namespace App;
 require_once __DIR__ . '/vendor/autoload.php';
 
 // Utilisez les classes et les espaces de noms nécessaires.
-use App\Controllers\HomeController;
 use App\Core\Utils;
 
 spl_autoload_register(function ($class) {
@@ -24,6 +23,9 @@ define('BASE_PATH', '/');
 $current_url = $_SERVER['REQUEST_URI'];
 // Retirez le chemin de base de l'URL pour obtenir le chemin relatif.
 $relative_path = str_replace(BASE_PATH, '/', $current_url);
+
+//Retire les variables GET de l'url
+$relative_path = explode('?', $relative_path)[0];
 
 // Divisez le chemin en segments.
 $segments = explode('/', $relative_path);

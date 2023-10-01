@@ -2,6 +2,8 @@
 
 namespace App\Core;
 
+use PDOException;
+
 class Sql
 {
 
@@ -11,9 +13,17 @@ class Sql
 
     public function __construct()
     {
-        $this->pdo = new \PDO('mysql:host='.$_ENV['MYSQL_HOST'].';port:'.$_ENV['MYSQL_PORT'].';dbname='.$_ENV['MYSQL_DATABASE'].';charset=utf8', $_ENV['MYSQL_USER'], $_ENV['MYSQL_PASSWORD']);
+        try {
+            $this->pdo = new \PDO('mysql:host=' . $_ENV['MYSQL_HOST'] . ';port:' . $_ENV['MYSQL_PORT'] . ';dbname=' . $_ENV['MYSQL_DATABASE'] . ';charset=utf8', $_ENV['MYSQL_USER'], $_ENV['MYSQL_PASSWORD']);
+            $this->pdo->exec("USE ".$_ENV['MYSQL_DATABASE']);
+
+        } catch (PDOException $e) {
+            die("Erreur de connexion à la base de données : " . $e->getMessage());
+        }
         $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         $this->pdo->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_OBJ);
+
+        $this->table = strtolower(str_replace('App\\Models\\', '', get_called_class()));
     }
 
     public static function getInstance()

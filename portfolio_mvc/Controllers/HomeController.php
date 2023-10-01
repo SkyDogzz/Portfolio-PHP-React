@@ -15,5 +15,7 @@ class HomeController extends BaseController
     public function testDbConnection()
     {
         $projects = new Projects();
+
+        var_dump($projects->findAll());
     }
 }

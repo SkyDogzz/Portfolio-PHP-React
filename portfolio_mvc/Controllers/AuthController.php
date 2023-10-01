@@ -14,7 +14,6 @@ class AuthController extends BaseController
         $users = new Users();
         $user = $users->findByColumn('email', 'test@test');
 
-
         $jwt = JWT::encode((array) $user, $_ENV['JWT_KEY'], 'HS256');
         echo json_encode($jwt);
     }

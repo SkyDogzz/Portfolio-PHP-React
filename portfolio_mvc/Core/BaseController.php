@@ -2,6 +2,11 @@
 
 namespace App\Core;
 
+use stdClass;
+use Exception;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+
 class BaseController
 {
 
@@ -15,6 +20,16 @@ class BaseController
             $_GET[$key] = trim(strip_tags($value));
         }
 
+        if (get_called_class() !== 'App\Controllers\AuthController') {
+            try {
+                $key = new Key($_ENV['JWT_KEY'], 'HS256');
+                $headers = new stdClass();
+                $headers->alg = 'HS256';
+                $decoded = JWT::decode($_GET['JWT_TOKEN'], $key, $headers);
+                return $decoded;
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
+        }
     }
-
 }

@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Models\Projects;
 use App\Core\BaseController;
 
 class HomeController extends BaseController
@@ -12,10 +11,9 @@ class HomeController extends BaseController
         echo 'Page d\'accueil';
     }
 
-    public function testDbConnection()
+    public function test()
     {
-        $projects = new Projects();
-
-        var_dump($projects->findAll());
+        echo 'test';
+        
     }
 }

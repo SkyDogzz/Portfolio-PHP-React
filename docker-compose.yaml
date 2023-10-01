@@ -5,6 +5,12 @@ services:
     build:
       context: portfolio_mvc
     container_name: Portfolio_MVC
+    environment:
+      - MYSQL_PORT=${MYSQL_PORT}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_HOST=${MYSQL_HOST}
     volumes:
       - ./portfolio_mvc:/var/www/html
     ports:

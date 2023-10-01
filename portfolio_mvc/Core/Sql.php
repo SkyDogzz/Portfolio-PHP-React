@@ -5,13 +5,13 @@ namespace App\Core;
 class Sql
 {
 
-    private static $instance = null;
-    private $pdo;
-    private $table;
+    protected static $instance = null;
+    protected $pdo;
+    protected $table;
 
-    private function __construct()
+    public function __construct()
     {
-        $this->pdo = new \PDO('mysql:host=localhost;dbname=portfolio_mvc;charset=utf8', 'root', '');
+        $this->pdo = new \PDO('mysql:host='.$_ENV['MYSQL_HOST'].';port:'.$_ENV['MYSQL_PORT'].';dbname='.$_ENV['MYSQL_DATABASE'].';charset=utf8', $_ENV['MYSQL_USER'], $_ENV['MYSQL_PASSWORD']);
         $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         $this->pdo->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_OBJ);
     }

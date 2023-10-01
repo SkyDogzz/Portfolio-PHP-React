@@ -4,6 +4,9 @@ FROM php:8.0-apache
 # Installez Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+# Installez les dépendances PDO pour MySQL
+RUN docker-php-ext-install pdo pdo_mysql
+
 # Copie composer.json
 COPY composer.json /var/www/html
 RUN composer install

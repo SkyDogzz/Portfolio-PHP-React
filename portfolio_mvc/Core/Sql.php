@@ -15,8 +15,7 @@ class Sql
     {
         try {
             $this->pdo = new \PDO('mysql:host=' . $_ENV['MYSQL_HOST'] . ';port:' . $_ENV['MYSQL_PORT'] . ';dbname=' . $_ENV['MYSQL_DATABASE'] . ';charset=utf8', $_ENV['MYSQL_USER'], $_ENV['MYSQL_PASSWORD']);
-            $this->pdo->exec("USE ".$_ENV['MYSQL_DATABASE']);
-
+            $this->pdo->exec("USE " . $_ENV['MYSQL_DATABASE']);
         } catch (PDOException $e) {
             die("Erreur de connexion à la base de données : " . $e->getMessage());
         }
@@ -51,7 +50,7 @@ class Sql
         return $datas;
     }
 
-    public function findByColumn(String $column, String $value): object | null
+    public function findByColumn(String $column, String $value): object | bool
     {
         $query = "SELECT * FROM $this->table WHERE $column = :$column";
         $result = $this->pdo->prepare($query);

@@ -12,9 +12,31 @@ class AuthController extends BaseController
     public function login()
     {
         $users = new Users();
-        $user = $users->findByColumn('email', 'test@test');
+        $user = $users->findByColumn('email', $_POST['email']);
 
-        $jwt = JWT::encode((array) $user, $_ENV['JWT_KEY'], 'HS256');
-        echo json_encode($jwt);
+        if (!$user) {
+            $json = [
+                'message' => 'Utilisateur non trouvé',
+                'success' => false
+            ];
+            echo json_encode($json);
+            return;
+        }
+
+        if (!password_verify($_POST['password'], $user->password)) {
+            $json = [
+                'message' => 'Mot de passe incorrect',
+                'success' => false
+            ];
+            echo json_encode($json);
+            return;
+        }
+
+        $json = [
+            'message' => 'Connexion réussie',
+            'success' => true,
+            'token' => JWT::encode((array) $user, $_ENV['JWT_KEY'], 'HS256')
+        ];
+        echo json_encode($json);
     }
 }

@@ -12,6 +12,7 @@ services:
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_HOST=${MYSQL_HOST}
       - JWT_KEY=${JWT_KEY}
+      - REACT_PORT=${REACT_PORT}
     volumes:
       - ./portfolio_mvc:/var/www/html
     ports:

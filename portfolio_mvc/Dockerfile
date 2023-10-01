@@ -7,6 +7,10 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Installez les dépendances PDO pour MySQL
 RUN docker-php-ext-install pdo pdo_mysql
 
+# Installez zip et unzip
+RUN apt-get update
+RUN apt-get install zip unzip
+
 # Copie composer.json
 COPY composer.json /var/www/html
 RUN composer install

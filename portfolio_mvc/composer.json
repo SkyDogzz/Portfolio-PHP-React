@@ -9,5 +9,7 @@
             "email": "thomas.stephan@live.fr"
         }
     ],
-    "require": {}
+    "require": {
+        "firebase/php-jwt": "*"
+    }
 }

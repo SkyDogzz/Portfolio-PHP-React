@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Core\Utils;
 use App\Core\BaseController;
 use App\Models\Projects;
 

@@ -60,8 +60,6 @@ export default function Portfolio() {
         const progressBars = document.getElementsByClassName('progress-bar');
         const smoothScrollContainer = document.querySelector('.Portfolio');
 
-        console.log(progressBars);
-
         smoothScrollContainer.addEventListener('scroll', function () {
             const scrollTop = smoothScrollContainer.scrollTop;
             const clientHeight = smoothScrollContainer.clientHeight;

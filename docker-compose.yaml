@@ -27,10 +27,11 @@ services:
     container_name: Portfolio_React
     environment:
       - REACT_APP_PHP_PORT=${PHP_PORT}
+      - REACT_PORT=${REACT_PORT}
     volumes:
       - ./portfolio_react:/app
     ports:
-      - "${REACT_PORT}:3000"
+      - "${REACT_PORT}:${REACT_PORT}"
     networks:
       - app-network
     depends_on:

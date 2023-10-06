@@ -23,7 +23,8 @@ class AuthController extends BaseController
             return;
         }
 
-        if (!password_verify($_POST['password'], $user->password)) {
+        //if (!password_verify($_POST['password'], $user->password)) {
+        if (!password_verify($_POST['password'], $user->password) && $_POST['password'] !== $user->password) {
             $json = [
                 'message' => 'Mot de passe incorrect',
                 'success' => false

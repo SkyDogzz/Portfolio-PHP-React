@@ -43,6 +43,7 @@ services:
     container_name: Portfolio_mysql
     volumes:
       - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - ./test_data.sql:/docker-entrypoint-initdb.d/test_data.sql
       - ./mysql_data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}

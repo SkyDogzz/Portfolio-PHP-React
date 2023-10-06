@@ -9,9 +9,10 @@ use Firebase\JWT\Key;
 
 class BaseController
 {
-
     public function __construct()
     {
+        $this->onlyPostMiddlware();
+
         //Sanitize information
         foreach ($_POST as $key => $value) {
             $_POST[$key] = trim(strip_tags($value));
@@ -30,6 +31,19 @@ class BaseController
             } catch (Exception $e) {
                 echo $e->getMessage();
             }
+        }
+    }
+
+    public function onlyPostMiddlware()
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $json = [
+                'message' => 'Méthode non autorisée',
+                'success' => false
+            ];
+            header("Content-Type: application/json");
+            echo json_encode($json);
+            exit;
         }
     }
 }

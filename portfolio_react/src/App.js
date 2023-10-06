@@ -1,6 +1,7 @@
 import { Routes, Route, Link } from "react-router-dom";
 import Portfolio from "./components/Portfolio";
 import Login from "./components/Login";
+import Disconnect from "./components/Disconnect";
 import "./styles/App.scss";
 
 export default function App() {
@@ -9,6 +10,7 @@ export default function App() {
       <Routes>
         <Route index element={<Portfolio />} />
         <Route path="login" element={<Login />} />
+        <Route path="disconnect" element={<Disconnect />} />
         <Route path="*" element={<NoMatch />} />
       </Routes>
     </div>

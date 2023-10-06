@@ -1,6 +1,22 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import Projects from "./Projects"
+import axios from "axios";
 
 export default function Portfolio() {
+    const [projects, setProjects] = useState([]);
+
+    useEffect(() => {
+        axios.post('http://localhost:' + process.env.REACT_APP_PHP_PORT + '/project/')
+            .then((res) => {
+                if (res.data.success) {
+                    setProjects(res.data.projects);
+                }
+                else {
+                    alert(res.data.message);
+                }
+            })
+    }, []);
+
     useEffect(() => {
         const h1Shadow = document.querySelector(".h1-shadow");
         const h1 = document.querySelector('h1');
@@ -212,7 +228,7 @@ export default function Portfolio() {
             </section>
             <section id="portfolio">
                 <h2>Portfolio</h2>
-                <h3>Rien à presenter pour le moment</h3>
+                <Projects projects={projects} />
             </section>
         </main>
     )

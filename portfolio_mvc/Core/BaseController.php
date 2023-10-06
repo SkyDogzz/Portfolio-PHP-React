@@ -12,6 +12,7 @@ class BaseController
     public function __construct()
     {
         $this->onlyPostMiddlware();
+        //$this->onlyAdminMiddleware();
 
         //Sanitize information
         foreach ($_POST as $key => $value) {
@@ -20,17 +21,18 @@ class BaseController
         foreach ($_GET as $key => $value) {
             $_GET[$key] = trim(strip_tags($value));
         }
+    }
 
-        if (get_called_class() !== 'App\Controllers\AuthController') {
-            try {
-                $key = new Key($_ENV['JWT_KEY'], 'HS256');
-                $headers = new stdClass();
-                $headers->alg = 'HS256';
-                $decoded = JWT::decode($_GET['JWT_TOKEN'], $key, $headers);
-                return $decoded;
-            } catch (Exception $e) {
-                echo $e->getMessage();
-            }
+    public function onlyAdminMiddleware()
+    {
+        try {
+            $key = new Key($_ENV['JWT_KEY'], 'HS256');
+            $headers = new stdClass();
+            $headers->alg = 'HS256';
+            $decoded = JWT::decode($_GET['JWT_TOKEN'], $key, $headers);
+            return $decoded;
+        } catch (Exception $e) {
+            echo $e->getMessage();
         }
     }
 

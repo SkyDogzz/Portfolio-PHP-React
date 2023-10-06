@@ -25,6 +25,8 @@ services:
     build:
       context: portfolio_react
     container_name: Portfolio_React
+    environment:
+      - REACT_APP_PHP_PORT=${PHP_PORT}
     volumes:
       - ./portfolio_react:/app
     ports:

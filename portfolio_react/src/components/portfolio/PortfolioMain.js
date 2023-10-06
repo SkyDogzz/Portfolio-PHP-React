@@ -203,6 +203,11 @@ export default function Portfolio() {
                         </div>
                     </div>
                 </div>
+                <div id="cv-container">
+                    <a href="/Thomas STEPHAN Resume.pdf">
+                        <button>Voir mon CV</button>
+                    </a>
+                </div>
                 <h3>Je suis disponible en tant que freelance</h3>
             </section>
             <section id="portfolio">

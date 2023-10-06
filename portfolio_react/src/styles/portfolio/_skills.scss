@@ -24,7 +24,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50%;
+    min-width: 50%;
     height: 100%;
 }
 
@@ -37,6 +37,13 @@
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 20px;
     width: 100%;
+
+    &>div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 
 }
 
@@ -56,3 +63,25 @@
     width: 0%;
     transition: all 1s ease-in-out;
 }
+
+#cv-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    margin: 40px;
+
+    button {
+        background-color: $quaternary-color;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        color: $primary-color;
+        font-size: 1.2rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        margin: 10px 0;
+    }
+}
+

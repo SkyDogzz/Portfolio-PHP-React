@@ -37,11 +37,16 @@ class Contact extends Sql{
         ]);
     }
 
-    public function findLast(): stdClass
+    public function findLast(): ?stdClass
     {
         $db = $this::getInstance();
         $result = $db->pdo->prepare("SELECT * FROM contact ORDER BY id DESC LIMIT 1");
         $result->execute();
+
+        if ($result->rowCount() == 0) {
+            return NULL;
+        }
+
         return $result->fetch();
     }
 

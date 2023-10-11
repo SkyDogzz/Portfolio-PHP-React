@@ -13,6 +13,13 @@ class ContactController extends BaseController
     {
         $contact = new Contact();
         $contact = $contact->findLast();
+        if ($contact == NULL) {
+            echo json_encode([
+                'message' => 'Aucun contact',
+                'success' => false
+            ]);
+            exit;
+        }
         echo json_encode([
             'message' => 'Contact récupéré',
             'success' => true,
@@ -40,7 +47,7 @@ class ContactController extends BaseController
         }
 
         $phone = $_POST['telephone'];
-        if (!preg_match('/^0[1-68]([-. ]?[0-9]{2}){4}$/', $phone)) {
+        if (!preg_match('/^0[1-9](\.\d{2}){0,4}$/', $phone)) {
             echo json_encode([
                 'message' => 'Numéro de téléphone invalide',
                 'success' => false

@@ -1,10 +1,34 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export default function Contact() {
     const [email, setEmail] = useState('');
     const [telephone, setTelephone] = useState('');
     const [message, setMessage] = useState('');
+
+    useEffect(() => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        };
+
+        axios.post(process.env.REACT_APP_PHP_HOST + ':' + process.env.REACT_APP_PHP_PORT + '/contact', config)
+            .then((res) => {
+                console.log(res.data);
+                if (res.data.success) {
+                    setEmail(res.data.data.email);
+                    setTelephone(res.data.data.telephone);
+                    setMessage(res.data.data.message);
+                }
+                else {
+                    alert(res.data.message);
+                }
+            })
+            .catch((err) => {
+                console.log(err.response);
+            });
+    }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();

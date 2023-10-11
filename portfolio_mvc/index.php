@@ -9,9 +9,9 @@ require_once __DIR__ . '/vendor/autoload.php';
 use App\Core\Utils;
 
 if ($_ENV['REACT_PORT'] != 80) {
-    header('Access-Control-Allow-Origin: http://localhost:' . $_ENV['REACT_PORT']);
+    header('Access-Control-Allow-Origin: '. $_ENV['PHP_HOST'] .':' . $_ENV['REACT_PORT']);
 } else {
-    header('Access-Control-Allow-Origin: http://localhost');
+    header('Access-Control-Allow-Origin: ' . $_ENV['PHP_HOST']);
 }
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');

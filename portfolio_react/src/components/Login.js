@@ -21,7 +21,7 @@ export default function Login() {
             },
         };
 
-        axios.post('http://localhost:' + process.env.REACT_APP_PHP_PORT + '/auth/login', formData, config)
+        axios.post(process.env.REACT_APP_PHP_HOST + ':' + process.env.REACT_APP_PHP_PORT + '/auth/login', formData, config)
             .then((res) => {
                 if (res.data.success) {
                     localStorage.setItem('token', res.data.token);

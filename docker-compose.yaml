@@ -12,6 +12,7 @@ services:
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_HOST=${MYSQL_HOST}
       - JWT_KEY=${JWT_KEY}
+      - PHP_HOST=${PHP_HOST}
       - REACT_PORT=${REACT_PORT}
     volumes:
       - ./portfolio_mvc:/var/www/html
@@ -26,6 +27,7 @@ services:
       context: portfolio_react
     container_name: Portfolio_React
     environment:
+      - REACT_APP_PHP_HOST=${PHP_HOST}
       - REACT_APP_PHP_PORT=${PHP_PORT}
       - REACT_PORT=${REACT_PORT}
     volumes:

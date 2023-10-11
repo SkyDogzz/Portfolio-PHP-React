@@ -6,7 +6,7 @@ export default function Portfolio() {
     const [projects, setProjects] = useState([]);
 
     useEffect(() => {
-        axios.post('http://localhost:' + process.env.REACT_APP_PHP_PORT + '/project/')
+        axios.post(process.env.REACT_APP_PHP_HOST + ':' + process.env.REACT_APP_PHP_PORT + '/project/')
             .then((res) => {
                 if (res.data.success) {
                     setProjects(res.data.projects);

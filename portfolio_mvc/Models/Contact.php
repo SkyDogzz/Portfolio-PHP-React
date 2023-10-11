@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use stdClass;
 use App\Core\Sql;
 
 class Contact extends Sql{
@@ -34,6 +35,14 @@ class Contact extends Sql{
             'telephone' => $this->telephone,
             'message' => $this->message
         ]);
+    }
+
+    public function findLast(): stdClass
+    {
+        $db = $this::getInstance();
+        $result = $db->pdo->prepare("SELECT * FROM contact ORDER BY id DESC LIMIT 1");
+        $result->execute();
+        return $result->fetch();
     }
 
 }

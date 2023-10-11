@@ -9,6 +9,17 @@ use App\Core\BaseController;
 class ContactController extends BaseController
 {
 
+    public function index(): void
+    {
+        $contact = new Contact();
+        $contact = $contact->findLast();
+        echo json_encode([
+            'message' => 'Contact récupéré',
+            'success' => true,
+            'data' => $contact
+        ]);
+    }
+
     public function update(): void
     {
         if (!isset($_POST['email']) || !isset($_POST['telephone']) || !isset($_POST['message'])) {
@@ -51,5 +62,10 @@ class ContactController extends BaseController
         $contact->setTelephone($phone);
         $contact->setMessage($message);
         $contact->update();
+
+        echo json_encode([
+            'message' => 'Contact mis à jour',
+            'success' => true
+        ]);
     }
 }

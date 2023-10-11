@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import {Link} from "react-router-dom";
+import { Routes, Route, Outlet } from "react-router-dom";
+import DashboardHeader from "./dashboard/DashboardHeader";
 
 export default function Dashboard() {
     useEffect(() => {
@@ -11,10 +12,8 @@ export default function Dashboard() {
 
     return (
       <div>
-        <p>
-          <Link to="/disconnect">Disconnect</Link>
-        </p>
-        <h2>Dashboard</h2>
+          <DashboardHeader />
+          <Outlet />
       </div>
     );
 }

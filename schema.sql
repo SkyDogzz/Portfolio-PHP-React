@@ -26,3 +26,10 @@ CREATE TABLE project_categories (
     FOREIGN KEY (project_id) REFERENCES projects(id),
     FOREIGN KEY (category_id) REFERENCES categories(id)
 );
+
+CREATE TABLE contact (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    telephone VARCHAR(255) NOT NULL,
+    message TEXT
+);

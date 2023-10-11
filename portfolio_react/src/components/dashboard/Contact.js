@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import axios from 'axios';
 
 export default function Contact() {
     const [email, setEmail] = useState('');
@@ -7,11 +8,31 @@ export default function Contact() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log({
-            email,
-            telephone,
-            message
-        });
+        const formData = new FormData();
+        formData.append('email', email);
+        formData.append('telephone', telephone);
+        formData.append('message', message);
+
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            },
+        };
+
+        axios.post(process.env.REACT_APP_PHP_HOST + ':' + process.env.REACT_APP_PHP_PORT + '/contact/update', formData, config)
+            .then((res) => {
+                console.log(res.data);
+                if (res.data.success) {
+                    alert(res.data.message);
+                }
+                else {
+                    alert(res.data.message);
+                }
+            })
+            .catch((err) => {
+                console.log(err.response);
+            });
+
     };
     return (
         <div>

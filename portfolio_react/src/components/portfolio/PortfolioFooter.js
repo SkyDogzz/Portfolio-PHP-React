@@ -22,7 +22,7 @@ export default function PortfolioFooter() {
                     setMessage(res.data.data.message);
                 }
                 else {
-                    alert(res.data.message);
+                    console.log(res.data.message);
                 }
             })
             .catch((err) => {

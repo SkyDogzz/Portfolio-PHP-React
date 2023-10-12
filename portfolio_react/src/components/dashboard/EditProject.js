@@ -28,8 +28,8 @@ export default function EditProject() {
         const catId = Number(e.target.value);
 
         if (e.target.checked) {
-            setCategories(prevState => ({ 
-                ...prevState, 
+            setCategories(prevState => ({
+                ...prevState,
                 selected: [...(prevState.selected || []), { id: String(catId) }]
             }));
         } else {
@@ -55,7 +55,44 @@ export default function EditProject() {
             })
     }, []);
 
-    //console.log(categories.selected.some(item => item.id === '1'));
+    const moveImageUp = (index) => {
+        if (index > 0) {
+            const newImages = [...images];
+            const temp = newImages[index - 1];
+            newImages[index - 1] = newImages[index];
+            newImages[index] = temp;
+            setImages(newImages);
+        }
+    };
+
+    const moveImageDown = (index) => {
+        if (index < images.length - 1) {
+            const newImages = [...images];
+            const temp = newImages[index + 1];
+            newImages[index + 1] = newImages[index];
+            newImages[index] = temp;
+            setImages(newImages);
+        }
+    };
+
+    const removeImage = (index) => {
+        const newImages = [...images];
+        newImages.splice(index, 1);
+        setImages(newImages);
+    };
+
+    const handleImageUpload = (e) => {
+        const newImages = [...e.target.files].map(file => ({
+            id: Math.random(),
+            name: file.name,
+            file: file,
+            isLocal: true
+        }));
+
+        setImages(prevState => ([...prevState, ...newImages]));
+
+        e.target.value = '';
+    };
 
     return (
         <div>
@@ -83,7 +120,7 @@ export default function EditProject() {
                 <div>
                     <label>Categories:</label>
                     <ul>
-                        { categories.all ? categories.all.map(cat => (
+                        {categories.all ? categories.all.map(cat => (
                             <li key={cat.id}>
                                 <input type="checkbox" value={cat.id} checked={categories.selected ? categories.selected.some(item => item.id === cat.id) : ""} onChange={handleCategoryChange} />
                                 <label>{cat.name}</label>
@@ -95,14 +132,18 @@ export default function EditProject() {
                 <div>
                     <label>Images:</label>
                     <ul>
-                        {images.map(img => (
-                            <li key={img.id}>
-                                <img src={img.path} alt={img.name} />
+                        {images ? images.map((img, index) => (
+                            <li key={img.id}>                                
+                            <img src={img.isLocal ? URL.createObjectURL(img.file) : `${process.env.REACT_APP_PHP_HOST}:${process.env.REACT_APP_PHP_PORT}/uploads/${img.name}`} alt={img.name} />
+                                <button type="button" onClick={() => moveImageUp(index)}>Move Up</button>
+                                <button type="button" onClick={() => moveImageDown(index)}>Move Down</button>
+                                <button type="button" onClick={() => removeImage(index)}>Remove</button>
                             </li>
-                        ))}
+                        )) : ""}
                     </ul>
+                    <label>Add Images:</label>
+                    <input type="file" multiple onChange={handleImageUpload} />
                 </div>
-
                 <button type="submit">Save Changes</button>
             </form>
         </div>

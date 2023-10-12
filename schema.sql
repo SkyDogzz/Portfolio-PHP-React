@@ -5,14 +5,6 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE images (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    path VARCHAR(255) NOT NULL,
-    project_id INT,
-    FOREIGN KEY (project_id) REFERENCES projects(id)
-);
-
 CREATE TABLE categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL
@@ -35,6 +27,14 @@ CREATE TABLE project_categories (
     PRIMARY KEY (project_id, category_id),
     FOREIGN KEY (project_id) REFERENCES projects(id),
     FOREIGN KEY (category_id) REFERENCES categories(id)
+);
+
+CREATE TABLE images (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    path VARCHAR(255) NOT NULL,
+    project_id INT,
+    FOREIGN KEY (project_id) REFERENCES projects(id)
 );
 
 CREATE TABLE contact (

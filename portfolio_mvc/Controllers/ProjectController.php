@@ -25,17 +25,21 @@ class ProjectController extends BaseController
 
     public function show(int $id = NULL)
     {
-        if($id == NULL) {
-            $id = (int) explode('/', $_SERVER['REQUEST_URI'])[3];  
+        if ($id == NULL) {
+            $id = (int) explode('/', $_SERVER['REQUEST_URI'])[3];
         }
-        $project = new Projects();  
+        $project = new Projects();
         $categories = new Categories();
         $image = new Images();
         $json = [
             'message' => 'Détail d\'un projet',
             'success' => true,
-            'project' => $project->find($id) ,
-            'categories' => $categories->findByProject($id)
+            'project' => $project->find($id),
+            'categories' => [
+                'all' => $categories->findAll(),
+                'selected' => $categories->findByProject($id)
+            ],
+            'images' => $image->findByProject($id)
         ];
         echo json_encode($json);
     }
@@ -60,10 +64,10 @@ class ProjectController extends BaseController
                 $image->setProjectId($project->getId());
                 $image->create();
                 $name = $images['name'][$i];
-                if ($images['error'][$i] === UPLOAD_ERR_OK) { 
+                if ($images['error'][$i] === UPLOAD_ERR_OK) {
                     $tmpName = $images['tmp_name'][$i];
                     $targetFilePath = $targetDir . basename($name);
-        
+
                     if (!move_uploaded_file($tmpName, $targetFilePath)) {
                         echo json_encode([
                             'message' => 'Error with file upload',
@@ -80,7 +84,7 @@ class ProjectController extends BaseController
         }
         foreach ($_FILES['images'] as $image) {
         }
-        
+
         $json = [
             'message' => 'Création d\'un projet',
             'success' => true,

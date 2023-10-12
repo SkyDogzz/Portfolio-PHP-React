@@ -38,4 +38,14 @@ class Images extends Sql{
         $this->id = $db->pdo->lastInsertId();
     }
 
+    public function findByProject(int $id){
+        $db = $this::getInstance();
+        $result = $db->pdo->prepare("SELECT * FROM images WHERE project_id = :id");
+        $result->execute([
+            'id' => $id
+        ]);
+        $images = $result->fetchAll();
+        return $images;
+    }
+
 }

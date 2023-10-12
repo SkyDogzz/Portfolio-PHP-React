@@ -3,3 +3,4 @@ node_modules
 vendor
 mysql_data
 .vscode
+uploads/

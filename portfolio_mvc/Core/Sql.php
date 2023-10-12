@@ -59,7 +59,7 @@ class Sql
         return $data;
     }
 
-    public function create(array $data): void
+    public function create(array $data)
     {
         $keys = array_keys($data);
         $fields = implode(', ', $keys);

@@ -50,8 +50,11 @@ export default function AddProject() {
             formData.append('github', github);
             formData.append('categories', selectedCategories);
             if (images != null && images.length > 0) {
-                formData.append('images', images);
+                for (let i = 0; i < images.length; i++) {
+                    formData.append('images[]', images[i]);
+                }
             }
+            
 
             let config = {
                 headers: {

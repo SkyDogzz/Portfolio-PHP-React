@@ -16,7 +16,14 @@ class BaseController
 
         //Sanitize information
         foreach ($_POST as $key => $value) {
-            $_POST[$key] = trim(strip_tags($value));
+            //if $_POST[$key] is an array, we need to sanitize each value
+            if (is_array($_POST[$key])) {
+                foreach ($_POST[$key] as $key2 => $value2) {
+                    $_POST[$key][$key2] = trim(strip_tags($value2));
+                }
+            } else {
+                $_POST[$key] = trim(strip_tags($value));
+            }
         }
         foreach ($_GET as $key => $value) {
             $_GET[$key] = trim(strip_tags($value));

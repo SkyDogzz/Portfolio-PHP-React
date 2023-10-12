@@ -71,7 +71,11 @@ class Projects extends Sql
 
     public function getId(): int
     {
-        return $this->id;
+        $db = $this::getInstance();
+        $result = $db->pdo->prepare("SELECT id FROM projects ORDER BY id DESC LIMIT 1");
+        $result->execute();
+        $id = $result->fetch();
+        return $id->id;
     }
 
     public function findAll(): array

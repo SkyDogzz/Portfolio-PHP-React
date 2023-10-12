@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\Users;
 use App\Models\Images;
 use App\Models\Projects;
+use App\Models\Categories;
 use App\Core\BaseController;
 
 class ProjectController extends BaseController
@@ -28,10 +29,13 @@ class ProjectController extends BaseController
             $id = (int) explode('/', $_SERVER['REQUEST_URI'])[3];  
         }
         $project = new Projects();  
+        $categories = new Categories();
+        $image = new Images();
         $json = [
             'message' => 'Détail d\'un projet',
             'success' => true,
-            'project' => $project->find($id)  
+            'project' => $project->find($id) ,
+            'categories' => $categories->findByProject($id)
         ];
         echo json_encode($json);
     }

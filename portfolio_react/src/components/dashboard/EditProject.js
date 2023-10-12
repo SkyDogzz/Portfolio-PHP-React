@@ -10,6 +10,7 @@ export default function EditProject() {
         axios.post(process.env.REACT_APP_PHP_HOST + ':' + process.env.REACT_APP_PHP_PORT + '/project/show/' + id)
             .then((res) => {
                 if (res.data.success) {
+                    console.log(res.data)
                     setProject(res.data.project);
                 }
                 else {
@@ -21,7 +22,7 @@ export default function EditProject() {
     return (
         <div>
             <h2>EditProject </h2>
-            
+
         </div>
     )
 }

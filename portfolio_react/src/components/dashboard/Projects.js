@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 export default function Projects() {
@@ -46,6 +47,9 @@ export default function Projects() {
                     })}
                 </tbody>
             </table>
+
+            <Link to="/dashboard/projects/add">Ajouter un projet</Link>
+
         </div>
     );
 }

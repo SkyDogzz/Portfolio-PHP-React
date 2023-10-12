@@ -2,6 +2,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import Portfolio from "./components/Portfolio";
 import Dashboard from "./components/Dashboard";
 import Projects from "./components/dashboard/Projects";
+import AddProject from "./components/dashboard/AddProject";
 import Contact from "./components/dashboard/Contact";
 import Login from "./components/Login";
 import Disconnect from "./components/Disconnect";
@@ -13,8 +14,9 @@ export default function App() {
       <Routes>
         <Route index element={<Portfolio />} />
         <Route path="dashboard" element={<Dashboard />}>
-            <Route path="projects" element={<Projects />} />
-            <Route path="contact" element={<Contact />} />
+          <Route path="projects" element={<Projects />}/>
+          <Route path="projects/add" element={<AddProject />} />
+          <Route path="contact" element={<Contact />} />
         </Route>
         <Route path="login" element={<Login />} />
         <Route path="disconnect" element={<Disconnect />} />

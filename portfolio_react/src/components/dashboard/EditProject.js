@@ -7,6 +7,7 @@ export default function EditProject() {
     const [project, setProject] = useState({});
     const [categories, setCategories] = useState({ all: [], selected: [] });
     const [images, setImages] = useState([]);
+    const [errors, setErrors] = useState({});
 
     const handleTitleChange = (e) => {
         setProject(prevState => ({ ...prevState, title: e.target.value }));
@@ -45,7 +46,6 @@ export default function EditProject() {
             .then((res) => {
                 if (res.data.success) {
                     setProject(res.data.project);
-                    console.log(res.data.categories);
                     setCategories(res.data.categories);
                     setImages(res.data.images);
                 }
@@ -94,18 +94,64 @@ export default function EditProject() {
         e.target.value = '';
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        let validationErrors = {};
+
+        if (!project.title) validationErrors.title = "Title is required";
+        if (!project.description) validationErrors.description = "Description is required";
+
+        setErrors(validationErrors);
+
+        if (Object.keys(validationErrors).length === 0) {
+            let formData = new FormData();
+            formData.append('title', project.title);
+            formData.append('description', project.description);
+            formData.append('link', project.link);
+            formData.append('github', project.github);
+            formData.append('categories', categories.selected);
+            if (images != null && images.length > 0) {
+                for (let i = 0; i < images.length; i++) {
+                    formData.append('images[]', images[i]);
+                }
+            }
+
+            let config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            };
+
+            axios.post(process.env.REACT_APP_PHP_HOST + ':' + process.env.REACT_APP_PHP_PORT + '/project/update/' + id, formData, config)
+                .then((res) => {
+                    if (res.data.success) {
+                        console.log(res.data);
+                    }
+                    else {
+                        console.log(res.data);
+                    }
+                })
+                .catch((err) => {
+                    console.log(err.response);
+                });
+
+        }
+    }
+
     return (
         <div>
             <h2>EditProject </h2>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div>
                     <label>Title:</label>
                     <input type="text" value={project.title ? project.title : ""} onChange={handleTitleChange} />
+                    {errors.title && <span>{errors.title}</span>}
                 </div>
-                {/* desciption, link, github*/}
                 <div>
                     <label>Description:</label>
                     <input type="text" value={project.description ? project.description : ""} onChange={handleDescriptionChange} />
+                    {errors.description && <span>{errors.description}</span>}
                 </div>
                 <div>
                     <label>Link:</label>
@@ -133,8 +179,8 @@ export default function EditProject() {
                     <label>Images:</label>
                     <ul>
                         {images ? images.map((img, index) => (
-                            <li key={img.id}>                                
-                            <img src={img.isLocal ? URL.createObjectURL(img.file) : `${process.env.REACT_APP_PHP_HOST}:${process.env.REACT_APP_PHP_PORT}/uploads/${img.name}`} alt={img.name} />
+                            <li key={img.id}>
+                                <img src={img.isLocal ? URL.createObjectURL(img.file) : `${process.env.REACT_APP_PHP_HOST}:${process.env.REACT_APP_PHP_PORT}/uploads/${img.name}`} alt={img.name} />
                                 <button type="button" onClick={() => moveImageUp(index)}>Move Up</button>
                                 <button type="button" onClick={() => moveImageDown(index)}>Move Down</button>
                                 <button type="button" onClick={() => removeImage(index)}>Remove</button>

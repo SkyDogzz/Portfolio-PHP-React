@@ -39,8 +39,7 @@ export default function Projects() {
                                 <td>{project.description}</td>
                                 <td>{project.categories}</td>
                                 <td>
-                                    <button>Modifier</button>
-                                    <button>Supprimer</button>
+                                    <Link to={"/dashboard/projects/edit/" + project.id}>Modifier</Link>
                                 </td>
                             </tr>
                         );

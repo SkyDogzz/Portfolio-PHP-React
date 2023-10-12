@@ -22,6 +22,20 @@ class ProjectController extends BaseController
         echo json_encode($json);
     }
 
+    public function show(int $id = NULL)
+    {
+        if($id == NULL) {
+            $id = (int) explode('/', $_SERVER['REQUEST_URI'])[3];  
+        }
+        $project = new Projects();  
+        $json = [
+            'message' => 'Détail d\'un projet',
+            'success' => true,
+            'project' => $project->find($id)  
+        ];
+        echo json_encode($json);
+    }
+
     public function create()
     {
         $project = new Projects();

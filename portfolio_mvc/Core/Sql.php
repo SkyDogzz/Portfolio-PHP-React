@@ -33,7 +33,7 @@ class Sql
         return self::$instance;
     }
 
-    public function find(int $id): object | null
+    public function find(int $id)
     {
         $query = "SELECT * FROM $this->table WHERE id = :id";
         $result = $this->pdo->prepare($query);
